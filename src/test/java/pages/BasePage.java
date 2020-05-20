@@ -1,16 +1,41 @@
 package pages;
 
 import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import test.BaseTest;
 
 public class BasePage {
-    public static void setBrowser(String browser) {
+    public static WebDriver driver;
+
+    @BeforeTest(alwaysRun = true)
+    public void beginTest() {
+        setBrowser("chrome");
+        driver.navigate().to("https://test.iddaa.com/giris-yap");
+    }
+
+    @AfterTest(alwaysRun = true)
+    public void afterTest() {
+        if(driver!=null){
+            driver.quit();
+        }
+    }
+
+    public  WebDriver getDriver() {
+        return driver;
+    }
+
+    public  void setDriver(WebDriver webDriver) {
+        driver = webDriver;
+    }
+    public  void setBrowser(String browser) {
         if(browser.equals("chrome")){
             //chrome driver dizinini belirttik.
             System.setProperty("webdriver.chrome.driver", "properties\\driver\\chromedriver.exe");
@@ -29,7 +54,7 @@ public class BasePage {
             chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
             //Driver'ımızı setliyoruz.
-            BaseTest.setDriver(new ChromeDriver(chromeOptions));
+            setDriver(new ChromeDriver(chromeOptions));
         }
         else if(browser.equals("firefox")){
             System.setProperty("webdriver.gecko.driver", "properties\\driver\\geckodriver.exe");
@@ -48,7 +73,7 @@ public class BasePage {
             firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
             capabilities.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
             //Driver'ımızı setliyoruz.
-            BaseTest.setDriver(new FirefoxDriver(firefoxOptions));
+            setDriver(new FirefoxDriver(firefoxOptions));
         }
         else{
             Assert.fail("Driver bulunamadı.Ayarları kontrol ediniz.");

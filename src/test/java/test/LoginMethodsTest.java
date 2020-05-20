@@ -2,18 +2,16 @@ package test;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
+import pages.BasePage;
 import pages.LoginMethods;
 
-public class LoginMethodsTest extends LoginMethods {
-    LoginMethods loginPage = new LoginMethods(driver);
+public class LoginMethodsTest extends BasePage {
+    LoginMethods loginPage;
     String phone="05349199918";
-
-    public LoginMethodsTest(WebDriver webDriver) {
-        super(webDriver);
-    }
 
     @Test(description = "Başarılı login işlemi gerçekleşmesi beklenir.")
     public void successLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login(phone, "qwerty1")
                 .checkUserMainPage("https://test.iddaa.com/");
@@ -21,6 +19,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test(description = "Hatalı bilgi girişi olan login uyarısının verilmesi beklenir.")
     public void wrongInformationTextLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("05349199918", "testhi54lal34")
                 .checkTrueLogin(
@@ -33,6 +32,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void emptyPhoneLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("", "511365")
                 .checkTrueLogin(
@@ -44,6 +44,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void emptyPasswordLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("05349199918", "")
                 .checkTrueLogin(
@@ -54,6 +55,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void emptyAllTextFieldsLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("", "")
                 .checkTrueLogin(
@@ -65,6 +67,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void invalidMinPhoneNumberLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("0919999999", "testhilaltest")
                 .checkTrueLogin(
@@ -76,6 +79,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void invalidMaxPhoneNumberLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("091999999999", "testhilaltest")
                 .checkTrueLogin(
@@ -87,6 +91,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void invalidWithoutZeroPhoneNumberLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("919999999999", "testhilaltest")
                 .checkTrueLogin(
@@ -98,6 +103,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void invalidMinPasswordLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("05349199918", "testhi")
                 .checkTrueLogin("05349199918",
@@ -108,6 +114,7 @@ public class LoginMethodsTest extends LoginMethods {
 
     @Test
     public void invalidMaxPasswordLogin() {
+        loginPage = new LoginMethods(driver);
         loginPage
                 .login("05349199918", "testhilaltesthilaltesthilal")
                 .checkTrueLogin(

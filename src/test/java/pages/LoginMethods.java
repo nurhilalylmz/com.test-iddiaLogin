@@ -11,9 +11,8 @@ public class LoginMethods extends BaseMethods
 {
     ContantsLoginPage loginPage = PageFactory.initElements(driver, ContantsLoginPage.class);
 
-    public LoginMethods(WebDriver webDriver) {
-        super(webDriver);
-        this.driver=webDriver;
+    public LoginMethods(WebDriver driver) {
+        super(driver);
     }
 
 

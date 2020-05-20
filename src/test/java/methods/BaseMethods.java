@@ -3,14 +3,14 @@ package methods;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import test.BaseTest;
+import pages.BasePage;
 public class BaseMethods {
-    public  WebDriver driver ;
-    public  WebDriverWait wait;
+    protected WebDriver driver;
+    protected WebDriverWait wait ;
 
     public BaseMethods(WebDriver webDriver) {
+        this.wait= new WebDriverWait(webDriver, 30);
         this.driver=webDriver;
-        this.wait= new WebDriverWait(driver, 30);
     }
 
     protected void logMessage(String text) {
