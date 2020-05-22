@@ -1,52 +1,53 @@
 package test;
 
 import org.testng.annotations.Test;
-import pages.BasePage;
 import methods.LoginMethods;
+import utils.UserDataProperties.LoginPageProperties;
 
 public class LoginMethodsTest extends BaseTest {
     LoginMethods loginPage;
+    LoginPageProperties getValueProp=new LoginPageProperties();
 
     @Test(description = "Hatalı bilgi girişi olan login uyarısının verilmesi beklenir.")
     public void wrongInformationTextLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("05349199999", "testhi54lal34")
+                .login(getValueProp.phoneNumber, getValueProp.wrongPassword)
                 .checkTrueLogin(
-                        "05349199999",
-                        "testhi54lal34",
-                        "Telefon numarası veya şifre hatalı.",
+                        getValueProp.phoneNumber,
+                        getValueProp.wrongPassword,
+                        getValueProp.textErrorWrongInformation,
                         driver.getCurrentUrl());
 
     }
 
-    @Test
+    @Test(description = "Telefon alanı boş bırakılıp giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void emptyPhoneLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("", "511365")
+                .login("", getValueProp.password)
                 .checkTrueLogin(
                         "",
-                        "testhilal34",
-                        "Bu alanın doldurulması zorunludur.",
+                        getValueProp.password,
+                        getValueProp.textErrorEmptyInput,
                         "");
     }
 
-    @Test
+    @Test(description = "Şifre alanı boş bırakılıp giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void emptyPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("05349199918", "")
+                .login(getValueProp.phoneNumber, "")
                 .checkTrueLogin(
-                        "05349199918",
-                        "", "Bu alanın doldurulması zorunludur.",
+                        getValueProp.phoneNumber,
+                        "", getValueProp.textErrorEmptyInput,
                         "");
     }
 
-    @Test
+    @Test(description = "Tüm alanlar boş bırakılıp giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void emptyAllTextFieldsLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
@@ -55,71 +56,71 @@ public class LoginMethodsTest extends BaseTest {
                 .checkTrueLogin(
                         "",
                         "",
-                        "Bu alanın doldurulması zorunludur.",
+                        getValueProp.textErrorEmptyInput,
                         "");
     }
 
-    @Test
+    @Test(description = "Telefon alanı hatalı min telefon numarası giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void invalidMinPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("0919999999", "testhilaltest")
+                .login(getValueProp.wrongMinPhoneNumber, getValueProp.password)
                 .checkTrueLogin(
-                        "0919999999",
-                        "testhilaltest",
-                        "Lütfen geçerli bir telefon numarası giriniz. Telefon numarası başına 0 olacak şekilde 11 haneli olmalıdır.",
+                        getValueProp.wrongMinPhoneNumber,
+                        getValueProp.password,
+                        getValueProp.textErrorInvalidPhone,
                         "");
     }
 
-    @Test
+    @Test(description = "Telefon alanı hatalı max telefon numarası giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void invalidMaxPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("091999999999", "testhilaltest")
+                .login(getValueProp.wrongMaxPhoneNumber, getValueProp.password)
                 .checkTrueLogin(
-                        "091999999999",
-                        "testhilaltest",
-                        "Lütfen geçerli bir telefon numarası giriniz. Telefon numarası başına 0 olacak şekilde 11 haneli olmalıdır.",
+                        getValueProp.wrongMaxPhoneNumber,
+                        getValueProp.password,
+                        getValueProp.textErrorInvalidPhone,
                         "");
     }
 
-    @Test
+    @Test(description = "Telefon alanı hatalı başında 0 olmadan telefon numarası giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void invalidWithoutZeroPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("919999999999", "testhilaltest")
+                .login(getValueProp.wrongWithoutZeroPhoneNumber, getValueProp.password)
                 .checkTrueLogin(
-                        "991999999999",
-                        "testhilaltest",
-                        "Lütfen geçerli bir telefon numarası giriniz. Telefon numarası başına 0 olacak şekilde 11 haneli olmalıdır.",
+                        getValueProp.wrongWithoutZeroPhoneNumber,
+                        getValueProp.password,
+                        getValueProp.textErrorInvalidPhone,
                         "");
     }
 
-    @Test
+    @Test(description = "Şifre alanı hatalı min şifre girilir ve  giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void invalidMinPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("05349199918", "testhi")
-                .checkTrueLogin("05349199918",
-                        "testhi",
-                        "Şifre maksimum 20 minimum 6 karakter içermelidir ve en az bir harf ve bir sayı içermelidir.",
+                .login(getValueProp.phoneNumber, getValueProp.wrongMinPassword)
+                .checkTrueLogin(getValueProp.phoneNumber,
+                        getValueProp.wrongMinPassword,
+                        getValueProp.textErrorInvalidPassword,
                         "");
     }
 
-    @Test
+    @Test(description = "Şifre alanı hatalı max şifre girilir ve  giriş butonuna tıklandığında uyarının verilmesi beklenir.")
     public void invalidMaxPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
                 .closePopup()
-                .login("05349199918", "testhilaltesthilaltesthilal")
+                .login(getValueProp.phoneNumber, getValueProp.wrongMaxPassword)
                 .checkTrueLogin(
-                        "05349199918",
-                        "testhilaltesthilaltesthilal",
-                        "Şifre maksimum 20 minimum 6 karakter içermelidir ve en az bir harf ve bir sayı içermelidir.",
+                        getValueProp.phoneNumber,
+                        getValueProp.wrongMaxPassword,
+                        getValueProp.textErrorInvalidPassword,
                         "");
     }
 }

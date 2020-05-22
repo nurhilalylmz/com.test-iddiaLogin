@@ -48,8 +48,6 @@ public class ContantsUserInfoPage extends BaseContants {
     //Ayarlar
     @FindBy(how = How.CSS, using = ".sc-jDwBTQ")
     public WebElement textSettings;
-    @FindBy(how = How.CSS, using = ".sc-gPEVay")
-    public WebElement textChangePassword;
 
     ////Kullanıcı bilgileri
     @FindBy(how = How.CSS, using = "div:nth-of-type(3) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")

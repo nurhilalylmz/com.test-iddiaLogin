@@ -11,7 +11,6 @@ import org.testng.Assert;
 
 public class UserPasswordMethods extends BaseMethods {
     ContantsUserPasswordPage userPasswordPage = PageFactory.initElements(driver, ContantsUserPasswordPage.class);
-    ContantsUserInfoPage userInfoPage = PageFactory.initElements(driver, ContantsUserInfoPage.class);
 
     public UserPasswordMethods(WebDriver driver) {
         super(driver);
@@ -19,11 +18,11 @@ public class UserPasswordMethods extends BaseMethods {
 
     @Description("Şifrelerim alanında bulunan default textleri kontrol eder.")
     public UserPasswordMethods controlDefaultTextMyPassword(String textDefaultChangePassword, String textDefaultMyPasswordInfo, String textDefaultCurrentPassword, String textDefaultNewPassword, String textDefaultConfirmNewPassword) {
-        Assert.assertEquals(userPasswordPage.textDefaultChangePassword.getText(), textDefaultChangePassword);
-        Assert.assertEquals(userPasswordPage.textDefaultChangeMyPassword.getText(), textDefaultMyPasswordInfo);
-        Assert.assertEquals(userPasswordPage.textDefaultCurrentPassword.getText(), textDefaultCurrentPassword);
-        Assert.assertEquals(userPasswordPage.textDefaultNewPassword.getText(), textDefaultNewPassword);
-        Assert.assertEquals(userPasswordPage.textDefaultConfirmNewPassword.getText(), textDefaultConfirmNewPassword);
+        controlPageTextEqual(userPasswordPage.textDefaultChangePassword.getText(), textDefaultChangePassword);
+        controlPageTextEqual(userPasswordPage.textDefaultChangeMyPassword.getText(), textDefaultMyPasswordInfo);
+        controlPageTextEqual(userPasswordPage.textDefaultCurrentPassword.getText(), textDefaultCurrentPassword);
+        controlPageTextEqual(userPasswordPage.textDefaultNewPassword.getText(), textDefaultNewPassword);
+        controlPageTextEqual(userPasswordPage.textDefaultConfirmNewPassword.getText(), textDefaultConfirmNewPassword);
         return new UserPasswordMethods(driver);
     }
 
@@ -51,19 +50,21 @@ public class UserPasswordMethods extends BaseMethods {
         return new UserPasswordMethods(driver);
     }
     @Description("Verilen bilgilerin doğruluğuna göre kontrol eder.")
-    public UserPasswordMethods controlTextErrorAndClick(String textError) {
+    public UserPasswordMethods controlTextError(String textError) {
         waitSeconds(2);
         if (textError.contains("Eski şifrenizi hatalı girdiniz.")) {
             controlTextError(textError, userPasswordPage.textAfterSaveButtonError);
         } else {
-            controlTextError(textError, userPasswordPage.textError);
+            controlTextError(textError, userPasswordPage.textErrorFirstInputAndName);
+            controlTextError(textError, userPasswordPage.textErrorNewPassword);
+            controlTextError(textError, userPasswordPage.textErrorConfNewPassword);
         }
         return new UserPasswordMethods(driver);
     }
 
     @Description("Şifre güncelleme sayfasına gidilmesini sağlar.")
     public UserPasswordMethods goToChangePasswordPage() {
-        clickElement(userInfoPage.textChangePassword);
+        clickElement(userPasswordPage.textChangePassword);
         return new UserPasswordMethods(driver);
     }
 

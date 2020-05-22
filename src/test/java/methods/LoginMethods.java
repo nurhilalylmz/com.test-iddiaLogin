@@ -2,7 +2,6 @@ package methods;
 
 import contants.ContantsLoginPage;
 import jdk.jfr.Description;
-import methods.profile.UserPasswordMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -48,6 +47,7 @@ public class LoginMethods extends BaseMethods
 
     @Description("Çıkan pop-up'ı kapatır.")
     public LoginMethods closePopup() {
+        waitElementToClickable(loginPage.buttonClosePopup);
         clickElement(loginPage.buttonClosePopup);
         return new LoginMethods(driver);
     }

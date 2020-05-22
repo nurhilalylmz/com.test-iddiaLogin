@@ -4,7 +4,6 @@ import contants.profilePage.ContantsUserEditPage;
 import jdk.jfr.Description;
 import methods.BaseMethods;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
@@ -17,6 +16,7 @@ public class UserEditMethods extends BaseMethods {
 
     @Description("Düzenle sayfasına gidilmesini sağlar.")
     public UserEditMethods clickEditButton() {
+        waitElementToClickable(userEditPage.buttonEditWithInfo);
         clickElement(userEditPage.buttonEditWithInfo);
         return new UserEditMethods(driver);
     }
@@ -41,6 +41,7 @@ public class UserEditMethods extends BaseMethods {
 
     @Description("Kullanıcının subscribe alanının güncellenmesini sağlar.")
     public UserEditMethods clickCheckFormSubscribe() {
+        waitElementToClickable(userEditPage.clickCheckFormSubscribe);
         clickElement(userEditPage.clickCheckFormSubscribe);
         return new UserEditMethods(driver);
     }
@@ -54,6 +55,7 @@ public class UserEditMethods extends BaseMethods {
     @Description("Kaydet butonuna tıklanır.")
     public UserEditMethods clickSaveButton() {
         try {
+            waitElementToClickable(userEditPage.buttonSave);
             clickElement(userEditPage.buttonSave);
             waitSeconds(1);
         } catch (Exception e) {
@@ -67,19 +69,19 @@ public class UserEditMethods extends BaseMethods {
         try {
             waitSeconds(2);
             if(expectedTextError.contains("Ad")){
-                controlTextError(expectedTextError, userEditPage.textErrorName);
+                controlTextError(expectedTextError, userEditPage.textErrorFirstInputAndName);
             }
             else if(expectedTextError.contains("Soyad")){
-                controlTextError(expectedTextError, userEditPage.textErrorSurname);
+                controlTextError(expectedTextError, userEditPage.textErrorLastName);
             }
             else if(expectedTextError.contains("Bu alanın doldurulması zorunludur")){
-                controlTextError(expectedTextError, userEditPage.textErrorName);
-                controlTextError(expectedTextError, userEditPage.textErrorSurname);
+                controlTextError(expectedTextError, userEditPage.textErrorFirstInputAndName);
+                controlTextError(expectedTextError, userEditPage.textErrorLastName);
                 controlTextError(expectedTextError,userEditPage.textErrorPhone);
             }
             else if(expectedTextError.contains("Maksimum 30 karakter olmalıdır")){
-                controlTextError(expectedTextError, userEditPage.textErrorName);
-                controlTextError(expectedTextError, userEditPage.textErrorSurname);
+                controlTextError(expectedTextError, userEditPage.textErrorFirstInputAndName);
+                controlTextError(expectedTextError, userEditPage.textErrorLastName);
             }
             else if(expectedTextError.contains("Lütfen geçerli bir telefon numarası giriniz.")){
                 controlTextError(expectedTextError,userEditPage.textErrorPhone);
@@ -89,8 +91,8 @@ public class UserEditMethods extends BaseMethods {
             }
         }catch (Exception e){
             Assert.fail("Hata: "+e.getMessage()+" Gelen değerler: " +
-                    "İsim: "+userEditPage.textErrorName.getText()+" " +
-                    "Soyad: "+userEditPage.textErrorSurname.getText()+" "+
+                    "İsim: "+userEditPage.textErrorFirstInputAndName.getText()+" " +
+                    "Soyad: "+userEditPage.textErrorLastName.getText()+" "+
                     "Telefon: "+userEditPage.textErrorPhone.getText());
         }
 
@@ -117,14 +119,4 @@ public class UserEditMethods extends BaseMethods {
         return new UserEditMethods(driver);
     }
 
-    @Description("Vazgeç butonuna tıklanır.")
-    public UserEditMethods clickIgnoreButton() {
-        try {
-            clickElement(userEditPage.buttonIgnore);
-            waitSeconds(1);
-        } catch (Exception e) {
-            Assert.fail("Elemente tıklanırken hata alındı.");
-        }
-        return new UserEditMethods(driver);
-    }
 }

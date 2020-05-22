@@ -7,6 +7,8 @@ import pages.BasePage;
 import test.BaseTest;
 import test.LoginMethodsTest;
 
+import java.io.IOException;
+
 public class UserInfoTest extends BaseTest {
     UserInfoMethods userInfoPage;
 
@@ -14,7 +16,7 @@ public class UserInfoTest extends BaseTest {
 
     @Description("Profil sayfasında default gelen text alanları kontrol edilir.")
     @Test
-    public void controlDefaultText() {
+    public void controlDefaultText() throws IOException {
         goToProfilePage();
         userInfoPage
                 .controlDefaultTextMyInfo(
@@ -44,7 +46,7 @@ public class UserInfoTest extends BaseTest {
 
     @Description("Profil sayfasında kullanıcı bilgilerinin doğruluğu kontrol edilir.")
     @Test
-    public void controlPersonInfoText() {
+    public void controlPersonInfoText() throws IOException {
         goToProfilePage();
         userInfoPage
                 .controlTextMyInfo(

@@ -1,7 +1,6 @@
 package methods;
 
 import jdk.jfr.Description;
-import methods.profile.UserEditMethods;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -82,6 +81,7 @@ public class BaseMethods extends BasePage {
             Assert.fail("Mail adresinde türkçe karakterler bulunmakta kontrol ediniz. Email: "+textValue);
         }
     }
+
     @Description("Gelen Email bilgisinin türkçe karakter kontrolünü sağlar.")
     protected void controlEmailError(String expectingError,WebElement actualTextError){
         if(!actualTextError.getText().equals(expectingError)){
@@ -100,11 +100,29 @@ public class BaseMethods extends BasePage {
         return isTextEqual;
     }
 
+    @Description("Beklenen ve Aslında olan text ifadelerini karşılaştırır.")
+    protected void controlPageTextEqual(String actualText,String expectingText){
+        try {
+            if(!actualText.equals(expectingText)){
+                Assert.fail("Beklenen: "+expectingText+" ,"+" Aslında olan: "+actualText);
+            }
+        }
+        catch (Exception e){
+            Assert.fail("Text'ler karşılatırılırken hata ile karşılaşıldı.Hata: "+e.getLocalizedMessage());
+        }
+
+    }
+
     @Description("Beklenen ve aslında olan text ifadelerin durumuna göre Vazgeç butonuna tıklanması sağlanır.")
     protected void controlTextError(String expectingText,WebElement actualText){
         if(controlTextWithEquality(expectingText,actualText)==false){
             Assert.fail("Verilen text'ler eş değil. Aslında : "+actualText.getText()+", Beklenen: "+expectingText);
         }
+    }
+
+    @Description("İlgili element tıklanana kadar bekler")
+    protected void waitUntilElementClickable(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     @Description("Beklenen sayfanın Url bilgisi verilmişse, sayfanın doğruluğunu kontrol eder.")

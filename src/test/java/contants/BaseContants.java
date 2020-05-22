@@ -22,16 +22,20 @@ public class BaseContants {
     public WebElement buttonIgnore;
     @FindBy(how = How.CLASS_NAME,using = "policy-popup__close")
     public WebElement buttonClosePopup;
+    @FindBy(how = How.CSS, using = ".sc-gPEVay")
+    public WebElement textChangePassword;
 
     //Error
-    @FindBy(how = How.XPATH,using = "/html//div[@id='root']/div/div[2]/div[@class='row']/div[@class='col-8']/div/form//div[@class='col-9 col-xl-8']/div[1]/div[2]/div/div[@class='form-error']")
-    public WebElement textFirstİnputError;
     @FindBy(how = How.CSS,using = ".iohaHW.sc-kpOJdX")
     public WebElement textAfterSaveButtonError;
     @FindBy(how = How.CSS,using = "div:nth-of-type(1) > .faDsvx.sc-kGXeez > .izXxLX.sc-kEYyzF > .form-error")
-    public WebElement textErrorName;
+    public WebElement textErrorFirstInputAndName;
     @FindBy(how = How.CSS,using = "div:nth-of-type(2) > div:nth-of-type(2) > .faDsvx.sc-kGXeez > .izXxLX.sc-kEYyzF > .form-error")
-    public WebElement textErrorSurname;
+    public WebElement textErrorLastName;
+    @FindBy(how = How.CSS,using = "div:nth-of-type(2) > .faDsvx.sc-kGXeez > .izXxLX.sc-kEYyzF > .form-error")
+    public WebElement textErrorNewPassword;
+    @FindBy(how = How.CSS,using = "div:nth-of-type(3) > .faDsvx.sc-kGXeez > .izXxLX.sc-kEYyzF > .form-error")
+    public WebElement textErrorConfNewPassword;
     @FindBy(how = How.CSS,using = "div:nth-of-type(4) > div:nth-of-type(2) > .faDsvx.sc-kGXeez > .izXxLX.sc-kEYyzF > .form-error")
     public WebElement textErrorPhone;
 }
