@@ -14,7 +14,6 @@
                     <include name="invalidWithoutZeroPhoneNumberLogin"/>
                     <include name="invalidMinPasswordLogin"/>
                     <include name="invalidMaxPasswordLogin"/>
-                    <include name="successLogin"/>
                 </methods>
             </class>
 
