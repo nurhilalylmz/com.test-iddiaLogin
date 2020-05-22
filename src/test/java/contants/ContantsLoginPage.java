@@ -1,12 +1,10 @@
 package contants;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
-public class ContantsLoginPage {
-    public WebDriver driver;
+public class ContantsLoginPage extends BaseContants{
 
     @FindBy(how = How.ID,using = "10000")
     public WebElement phoneNumber;

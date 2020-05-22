@@ -8,20 +8,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
-import test.BaseTest;
 
 public class BasePage {
     public static WebDriver driver;
 
-    @BeforeTest(alwaysRun = true)
+    @BeforeTest
     public void beginTest() {
         setBrowser("chrome");
         driver.navigate().to("https://test.iddaa.com/giris-yap");
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterTest
     public void afterTest() {
         if(driver!=null){
             driver.quit();

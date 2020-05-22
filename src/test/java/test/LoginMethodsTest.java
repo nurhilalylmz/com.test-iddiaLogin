@@ -1,29 +1,20 @@
 package test;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import pages.BasePage;
-import pages.LoginMethods;
+import methods.LoginMethods;
 
-public class LoginMethodsTest extends BasePage {
+public class LoginMethodsTest extends BaseTest {
     LoginMethods loginPage;
-    String phone="05349199918";
-
-    @Test(description = "Başarılı login işlemi gerçekleşmesi beklenir.")
-    public void successLogin() {
-        loginPage = new LoginMethods(driver);
-        loginPage
-                .login(phone, "qwerty1")
-                .checkUserMainPage("https://test.iddaa.com/");
-    }
 
     @Test(description = "Hatalı bilgi girişi olan login uyarısının verilmesi beklenir.")
     public void wrongInformationTextLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
-                .login("05349199918", "testhi54lal34")
+                .closePopup()
+                .login("05349199999", "testhi54lal34")
                 .checkTrueLogin(
-                        "05349199918",
+                        "05349199999",
                         "testhi54lal34",
                         "Telefon numarası veya şifre hatalı.",
                         driver.getCurrentUrl());
@@ -34,6 +25,7 @@ public class LoginMethodsTest extends BasePage {
     public void emptyPhoneLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("", "511365")
                 .checkTrueLogin(
                         "",
@@ -46,6 +38,7 @@ public class LoginMethodsTest extends BasePage {
     public void emptyPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("05349199918", "")
                 .checkTrueLogin(
                         "05349199918",
@@ -57,6 +50,7 @@ public class LoginMethodsTest extends BasePage {
     public void emptyAllTextFieldsLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("", "")
                 .checkTrueLogin(
                         "",
@@ -69,6 +63,7 @@ public class LoginMethodsTest extends BasePage {
     public void invalidMinPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("0919999999", "testhilaltest")
                 .checkTrueLogin(
                         "0919999999",
@@ -81,6 +76,7 @@ public class LoginMethodsTest extends BasePage {
     public void invalidMaxPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("091999999999", "testhilaltest")
                 .checkTrueLogin(
                         "091999999999",
@@ -93,6 +89,7 @@ public class LoginMethodsTest extends BasePage {
     public void invalidWithoutZeroPhoneNumberLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("919999999999", "testhilaltest")
                 .checkTrueLogin(
                         "991999999999",
@@ -105,6 +102,7 @@ public class LoginMethodsTest extends BasePage {
     public void invalidMinPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("05349199918", "testhi")
                 .checkTrueLogin("05349199918",
                         "testhi",
@@ -116,6 +114,7 @@ public class LoginMethodsTest extends BasePage {
     public void invalidMaxPasswordLogin() {
         loginPage = new LoginMethods(driver);
         loginPage
+                .closePopup()
                 .login("05349199918", "testhilaltesthilaltesthilal")
                 .checkTrueLogin(
                         "05349199918",
