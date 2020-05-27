@@ -1,13 +1,11 @@
 package methods.profile;
 
 
-import contants.profilePage.ContantsUserInfoPage;
 import contants.profilePage.ContantsUserPasswordPage;
 import jdk.jfr.Description;
 import methods.BaseMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
 public class UserPasswordMethods extends BaseMethods {
     ContantsUserPasswordPage userPasswordPage = PageFactory.initElements(driver, ContantsUserPasswordPage.class);

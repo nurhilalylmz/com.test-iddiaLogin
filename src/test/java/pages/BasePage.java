@@ -34,7 +34,7 @@ public class BasePage {
     public  void setBrowser(String browser) {
         if(browser.equals("chrome")){
             //chrome driver dizinini belirttik.
-            System.setProperty("webdriver.chrome.driver", "properties\\driver\\chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "driver\\chromedriver.exe");
             //Browser ayarları
             DesiredCapabilities capabilities = new DesiredCapabilities();
             //Chrome ayarlarını yapmak için yeni bir obje nesnesi oluşturulur.
@@ -53,7 +53,7 @@ public class BasePage {
             setDriver(new ChromeDriver(chromeOptions));
         }
         else if(browser.equals("firefox")){
-            System.setProperty("webdriver.gecko.driver", "properties\\driver\\geckodriver.exe");
+            System.setProperty("webdriver.gecko.driver", "driver\\geckodriver.exe");
             //Browser ayarları
             DesiredCapabilities capabilities = new DesiredCapabilities();
             //Chrome ayarlarını yapmak için yeni bir obje nesnesi oluşturulur.

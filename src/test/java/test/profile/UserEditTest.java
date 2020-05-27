@@ -3,9 +3,11 @@ package test.profile;
 import methods.profile.UserEditMethods;
 import org.testng.annotations.Test;
 import test.BaseTest;
+import utils.properties.UserDataProperties.user.UserEditPageProperties;
 
 public class UserEditTest extends BaseTest {
-    UserEditMethods userEditPage;
+    UserEditMethods userEditPage = new UserEditMethods(driver);
+    UserEditPageProperties getValueProps= new UserEditPageProperties();
 
     @Test(description = "Bütün alanlara değerler girilir ve kaydedilir.")
     public void allInputChangeValue() {
@@ -13,17 +15,17 @@ public class UserEditTest extends BaseTest {
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .nameInputChangeValue("Nur Hilal")
-                .surnameInputChangeValue("Öztürk")
-                .emailInputChangeValue("testhilaltestmbsm@gmail.com")
+                .nameInputChangeValue(getValueProps.truPersonName)
+                .surnameInputChangeValue(getValueProps.truePersonSurname)
+                .emailInputChangeValue(getValueProps.truePersonMail)
                 .clickCheckFormSubscribe()
                 .clickSaveButton()
-                .controlPageTextError("");
+                .controlPageTextError("")
+                .logout();
     }
 
     @Test(description = "Alanlara değer girilmez ve kaydet butonuna tıklanır.")
     public void emptyInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
@@ -31,77 +33,71 @@ public class UserEditTest extends BaseTest {
                 .surnameInputChangeValue("")
                 .phoneInputChangeValue("")
                 .clickSaveButton()
-                .controlPageTextError("Bu alanın doldurulması zorunludur.");
+                .controlPageTextError(getValueProps.textErrorEmptyInput);
     }
 
     @Test(description = "Ad-Soyad alanına tek harf girilir ve kaydet butonuna tıklanır.")
     public void twoLetterRuleInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .nameInputChangeValue("N")
-                .surnameInputChangeValue("K")
+                .nameInputChangeValue(getValueProps.minPersonName)
+                .surnameInputChangeValue(getValueProps.minPersonSurname)
                 .clickSaveButton()
-                .controlPageTextError("Ad alanı minimum 2, maksimum 30 karakter içermelidir. Özel karakter içermemelidir.")
-                .controlPageTextError("Soyad alanı minimum 2, maksimum 30 karakter içermelidir. Özel karakter içermemelidir.");
+                .controlPageTextError(getValueProps.textErrorInvalidName)
+                .controlPageTextError(getValueProps.textErrorInvalidSurname);
     }
 
     @Test(description = "Ad-Soyad alanına 30'dan fazla harf girilir ve kaydet butonuna tıklanır.")
     public void thirtyLetterRuleInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .nameInputChangeValue("NurHilalnurhilalnurhilalnurhila")
-                .surnameInputChangeValue("Karakarakarakarakarakarakarakark")
+                .nameInputChangeValue(getValueProps.maxPersonName)
+                .surnameInputChangeValue(getValueProps.maxPersonSurname)
                 .clickSaveButton()
-                .controlPageTextError("Maksimum 30 karakter olmalıdır");
+                .controlPageTextError(getValueProps.textErrorMaxCharacter);
     }
 
     @Test(description = "Ad-Soyad alanına özel karakter girilir ve kaydet butonuna tıklanır.")
     public void specialCharacterInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .nameInputChangeValue("hilal@")
-                .surnameInputChangeValue("kara@")
+                .nameInputChangeValue(getValueProps.invalidPersonName)
+                .surnameInputChangeValue(getValueProps.invalidPersonSurname)
                 .clickSaveButton()
-                .controlPageTextError("Ad alanı minimum 2, maksimum 30 karakter içermelidir. Özel karakter içermemelidir.")
-                .controlPageTextError("Soyad alanı minimum 2, maksimum 30 karakter içermelidir. Özel karakter içermemelidir.");
+                .controlPageTextError(getValueProps.textErrorInvalidName)
+                .controlPageTextError(getValueProps.textErrorInvalidSurname);
     }
 
     @Test(description = "Email alanına geçersiz değer girilir ve kaydet butonuna tıklanır.")
     public void invalidRuleMailInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .emailInputChangeValue("testhilaltest@gmail.c")
+                .emailInputChangeValue(getValueProps.wrongPersonMail)
                 .clickSaveButton()
-                .controlEmailError("Geçerli bir mail adresi giriniz");
+                .controlEmailError(getValueProps.textErrorInvalidEmail);
     }
 
     @Test(description = "Email alanına türkçe harf girilir ve kaydet butonuna tıklanır.")
     public void specCharacterRuleMailInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .emailInputChangeValue("testhılal@gmail.com")
+                .emailInputChangeValue(getValueProps.invalidPersonMail)
                 .clickSaveButton()
-                .controlEmailValue("testhılal@gmail.com");
+                .controlEmailValue(getValueProps.invalidPersonMail);
     }
 
     @Test(description = "Numara alanına hatalı numara girilir ve kaydet butonuna tıklanır.")
     public void invalidPhoneNumberInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
-                .phoneInputChangeValue("5399199999")
+                .phoneInputChangeValue(getValueProps.wrongPhoneNumber)
                 .clickSaveButton()
-                .controlPageTextError("Lütfen geçerli bir telefon numarası giriniz. Telefon numarası başına 0 olacak şekilde 11 haneli olmalıdır.");
+                .controlPageTextError(getValueProps.textErrorInvalidPhone);
     }
 }

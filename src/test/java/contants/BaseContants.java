@@ -24,6 +24,8 @@ public class BaseContants {
     public WebElement buttonClosePopup;
     @FindBy(how = How.CSS, using = ".sc-gPEVay")
     public WebElement textChangePassword;
+    @FindBy(how = How.CLASS_NAME,using = "sc-htpNat jmcovB")
+    public WebElement buttonLogout;
 
     //Error
     @FindBy(how = How.CSS,using = ".iohaHW.sc-kpOJdX")

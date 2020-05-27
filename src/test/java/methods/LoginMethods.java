@@ -13,8 +13,7 @@ public class LoginMethods extends BaseMethods
     public LoginMethods(WebDriver driver) {
         super(driver);
     }
-
-
+    
     @Description("Girilen bilgilerle birlikte kullanıcı login olur.")
     public LoginMethods login(String phoneNumber, String password) {
         waitForPageLoad(loginPage.copyrightText);
@@ -54,5 +53,6 @@ public class LoginMethods extends BaseMethods
         clickElement(loginPage.buttonClosePopup);
         return new LoginMethods(driver);
     }
+
 }
 

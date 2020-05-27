@@ -8,11 +8,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 public class UserEditMethods extends BaseMethods {
-    public UserEditMethods(WebDriver driver) {
-        super(driver);
-    }
 
     ContantsUserEditPage userEditPage = PageFactory.initElements(driver, ContantsUserEditPage.class);
+
+    public UserEditMethods(WebDriver webDriver) {
+        super(webDriver);
+    }
 
     @Description("Düzenle sayfasına gidilmesini sağlar.")
     public UserEditMethods clickEditButton() {
@@ -118,5 +119,11 @@ public class UserEditMethods extends BaseMethods {
         }
         return new UserEditMethods(driver);
     }
-
+    @Description("Kullanıcı logout olur.")
+    public UserEditMethods logout() {
+        waitForPageLoad(userEditPage.copyrightText);
+        clickElement(userEditPage.buttonLogout);
+        waitSeconds(1);
+        return new UserEditMethods(driver);
+    }
 }

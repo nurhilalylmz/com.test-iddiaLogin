@@ -3,65 +3,61 @@ package test.profile;
 import jdk.jfr.Description;
 import methods.profile.UserInfoMethods;
 import org.testng.annotations.Test;
-import pages.BasePage;
 import test.BaseTest;
-import test.LoginMethodsTest;
-
-import java.io.IOException;
+import utils.properties.UserDataProperties.user.UserInfoPageProperties;
 
 public class UserInfoTest extends BaseTest {
-    UserInfoMethods userInfoPage;
-
-    String phone="05349199918";
+    UserInfoMethods userInfoPage=new UserInfoMethods(driver);
+    UserInfoPageProperties getValueProp=new UserInfoPageProperties();
 
     @Description("Profil sayfasında default gelen text alanları kontrol edilir.")
     @Test
-    public void controlDefaultText() throws IOException {
+    public void controlDefaultText(){
         goToProfilePage();
         userInfoPage
                 .controlDefaultTextMyInfo(
-                        "BİLGİLERİM",
-                        "Kişisel Bilgilerim",
-                        "Adınız",
-                        "Soyadınız",
-                        "Düzenle")
+                        getValueProp.textDefaultMyInfo,
+                        getValueProp.textDefaultMyPersonalInfo,
+                        getValueProp.textDefaultName,
+                        getValueProp.textDefaultSurname,
+                        getValueProp.textDefaultEdit)
                 .controlDefaultTextContactInfo(
-                        "İletişim Bilgilerim",
-                        "E-posta",
-                        "Cep Telefonu",
-                        "E-posta ve SMS ile güncel kampanyalardan haberdar olmak istiyorum.")
+                        getValueProp.textDefaultMyContact,
+                        getValueProp.textDefaultMail,
+                        getValueProp.textDefaultPhone,
+                        getValueProp.textDefaultInformMe)
                 .controlDefaultTextDealerInfo(
-                        "Kayıtlı Bayi Bilgileri",
-                        "Bayi Numarası",
-                        "Bayi Adı",
-                        "Bayi Adresi")
+                        getValueProp.textDefaultDealerInfo,
+                        getValueProp.textDefaultDealerNumber,
+                        getValueProp.textDefaultDealerName,
+                        getValueProp.textDefaultDealerAddress)
                 .controlDefaultTextMyMoneyInfo(
-                        "Bakiye",
-                        "Kalan günlük yükleme limit",
-                        "* Tek seferde maksimum 1000 TL bakiye yükleyebilirsiniz.")
+                        getValueProp.textDefaultMoney,
+                        getValueProp.textDefaultMoneyLimit,
+                        getValueProp.textDefaultMoneyNote)
                 .controlDefaultTextSettings(
-                        "AYARLAR",
-                        "Şifre Değiştir");
+                        getValueProp.textDefaultSettings,
+                        getValueProp.textDefaultChangePassword);
     }
 
     @Description("Profil sayfasında kullanıcı bilgilerinin doğruluğu kontrol edilir.")
     @Test
-    public void controlPersonInfoText() throws IOException {
+    public void controlPersonInfoText() {
         goToProfilePage();
         userInfoPage
                 .controlTextMyInfo(
-                        "Hilal",
-                        "Yılmaz")
+                        getValueProp.personName,
+                        getValueProp.personSurname)
                 .controlTextContactInfo(
-                        "testhilaltest@gmail.com",
-                        phone)
+                        getValueProp.personEmail,
+                        getValueProp.personPhoneNumber)
                 .controlTextDealerInfo(
-                        "110319",
-                        "MEHMET MANGIR",
-                        "HAN MAH. NURİ EROĞLU SOK. NO:3/A 10050 SUSURLUK / BALIKESİR")
+                        getValueProp.personDelaerNumber,
+                        getValueProp.personDelaerName,
+                        getValueProp.personDealerAddress)
                 .controlTextMyMoneyInfo(
-                        "Hilal Yılmaz",
-                        "14991 TL",
-                        "15000 TL");
+                        getValueProp.person,
+                        getValueProp.personMoney,
+                        getValueProp.personLimit);
     }
 }

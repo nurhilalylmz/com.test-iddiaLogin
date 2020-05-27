@@ -4,43 +4,43 @@ import jdk.jfr.Description;
 import methods.profile.UserPasswordMethods;
 import org.testng.annotations.Test;
 import test.BaseTest;
+import utils.properties.UserDataProperties.user.UserPasswordPageProperties;
 
 public class UserPasswordTest extends BaseTest {
-    UserPasswordMethods userPasswordPage;
+
+    UserPasswordMethods userPasswordPage=new UserPasswordMethods(driver);
+    UserPasswordPageProperties getValueProps= new UserPasswordPageProperties();
 
     @Description("Bütün default alanlar kontrol edilir.")
     @Test
     public void controlDefaultValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
                 .controlDefaultTextMyPassword(
-                        "ŞİFRE DEĞİŞTİR",
-                        "Şifre Bilgilerim",
-                        "Mevcut Şifre",
-                        "Yeni Şifre",
-                        "Yeni Şifre (Tekrar)"
+                        getValueProps.textDefaultChangePasswordTitle,
+                        getValueProps.textDefaultPasswordInfo,
+                        getValueProps.textDefaultCurrentPassword,
+                        getValueProps.textDefaultNewPassword,
+                        getValueProps.textDefaultConfirmNewPassword
                 );
     }
 
     @Description("Bütün alanlara değerler girilir ve kaydedilir.")
     @Test
     public void allInputChangeValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
-                .currentPasswordInputChangeValue("qwerty1")
-                .newPasswordInputChangeValue("testhilaltest34")
-                .confirmNewPasswordInputChangeValue("testhilaltest34")
+                .currentPasswordInputChangeValue(getValueProps.password)
+                .newPasswordInputChangeValue(getValueProps.newPassword)
+                .confirmNewPasswordInputChangeValue(getValueProps.newPassword)
                 .clickSaveButton();
     }
 
     @Description("Alanlara değer girilmez ve kaydet butonuna tıklanır.")
     @Test
     public void emptyPasswordInputChangeValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
@@ -48,63 +48,73 @@ public class UserPasswordTest extends BaseTest {
                 .newPasswordInputChangeValue("")
                 .confirmNewPasswordInputChangeValue("")
                 .clickSaveButton()
-                .controlTextError("Bu alanın doldurulması zorunludur.");
+                .controlTextError(getValueProps.textErrorEmptyInput);
     }
 
     @Description("Alanlara altı karakter numara girilir ve kaydet butonuna tıklanır.")
     @Test
     public void sixLetterRuleJustNumberInputChangeValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
-                .currentPasswordInputChangeValue("789456")
-                .newPasswordInputChangeValue("123456")
-                .confirmNewPasswordInputChangeValue("123456")
+                .currentPasswordInputChangeValue(getValueProps.wrongPasswordJustNumber)
+                .newPasswordInputChangeValue(getValueProps.wrongNewPasswordJustNumber)
+                .confirmNewPasswordInputChangeValue(getValueProps.wrongNewPasswordJustNumber)
                 .clickSaveButton()
-                .controlTextError("Şifre maksimum 20 minimum 6 karakter içermelidir ve en az bir harf ve bir sayı içermelidir.");
+                .controlTextError(getValueProps.textErrorInvalidPassword);
     }
 
     @Description("Alanlara altı karakter harf girilir ve kaydet butonuna tıklanır.")
     @Test
     public void sixLetterRuleJustLetterInputValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
-                .currentPasswordInputChangeValue("hilalt")
-                .newPasswordInputChangeValue("testhil")
-                .confirmNewPasswordInputChangeValue("testhil")
+                .currentPasswordInputChangeValue(getValueProps.wrongPasswordJustLetter)
+                .newPasswordInputChangeValue(getValueProps.wrongNewPasswordJustLetter)
+                .confirmNewPasswordInputChangeValue(getValueProps.wrongNewPasswordJustLetter)
                 .clickSaveButton()
-                .controlTextError("Şifre maksimum 20 minimum 6 karakter içermelidir ve en az bir harf ve bir sayı içermelidir.");
+                .controlTextError(getValueProps.textErrorInvalidPassword);
     }
 
     @Description("Mevcut Şifre alanına hatalı şifre girilir ve kaydet butonuna tıklanır.")
     @Test
     public void invalidCurrentPasswordInputValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
-                .currentPasswordInputChangeValue("testhilal34")
-                .newPasswordInputChangeValue("123456h")
-                .confirmNewPasswordInputChangeValue("123456h")
+                .currentPasswordInputChangeValue(getValueProps.wrongPassword)
+                .newPasswordInputChangeValue(getValueProps.newPassword)
+                .confirmNewPasswordInputChangeValue(getValueProps.newPassword)
                 .clickSaveButton()
-                .controlTextError("Eski şifrenizi hatalı girdiniz.");
+                .controlTextError(getValueProps.textErrorCurrentPassword);
+    }
+
+    @Description("Eski şifre ile yeni şifre aynı girilir ve kaydet butonuna tıklanır.")
+    @Test
+    public void newAndOldPasswordAreNotSame() {
+        goToProfilePage();
+        userPasswordPage = new UserPasswordMethods(driver);
+        userPasswordPage
+                .goToChangePasswordPage()
+                .currentPasswordInputChangeValue(getValueProps.password)
+                .newPasswordInputChangeValue(getValueProps.password)
+                .confirmNewPasswordInputChangeValue(getValueProps.password)
+                .clickSaveButton()
+                .controlTextError(getValueProps.textErrorOldNewPassword);
     }
 
     @Description("Yeni Şifre alanlarına birbirlerinin aynı olmayan şifre girilir ve kaydet butonuna tıklanır.")
     @Test
     public void doNotMatchNewAndConfirmPasswordInputValue() {
-        userPasswordPage = new UserPasswordMethods(driver);
         goToProfilePage();
         userPasswordPage
                 .goToChangePasswordPage()
-                .currentPasswordInputChangeValue("qwerty1")
-                .newPasswordInputChangeValue("123456h")
-                .confirmNewPasswordInputChangeValue("123456hk")
+                .currentPasswordInputChangeValue(getValueProps.password)
+                .newPasswordInputChangeValue(getValueProps.newPassword)
+                .confirmNewPasswordInputChangeValue(getValueProps.wrongConfirmPassword)
                 .clickSaveButton()
-                .controlTextError("Şifreleriniz eşleşmemektedir.");
+                .controlTextError(getValueProps.textErrorMismatchPassword);
     }
 
 }

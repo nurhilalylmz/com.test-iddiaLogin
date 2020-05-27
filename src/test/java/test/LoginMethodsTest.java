@@ -2,7 +2,7 @@ package test;
 
 import org.testng.annotations.Test;
 import methods.LoginMethods;
-import utils.UserDataProperties.LoginPageProperties;
+import utils.properties.UserDataProperties.LoginPageProperties;
 
 public class LoginMethodsTest extends BaseTest {
     LoginMethods loginPage;
