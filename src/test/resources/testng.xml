@@ -19,4 +19,43 @@
 
         </classes>
     </test>
+    <test name="UserTest">
+        <classes>
+            <class name="test.profile.UserInfoTest">
+                <methods>
+                    <include name="goToProfilePage"/>
+                    <include name="controlDefaultText"/>
+                    <include name="controlPersonInfoText"/>
+                </methods>
+            </class>
+            <class name="test.profile.UserEditTest">
+                <methods>
+                    <include name="allInputChangeValue"/>
+                    <include name="emptyNameInputChangeValue"/>
+                    <include name="twoLetterRuleNameInputChangeValue"/>
+                    <include name="thirtyLetterRuleNameInputChangeValue"/>
+                    <include name="specialCharacterNameInputChangeValue"/>
+                    <include name="emptySurnameInputChangeValue"/>
+                    <include name="twoLetterRuleSurnameInputChangeValue"/>
+                    <include name="thirtyLetterRuleSurnameInputChangeValue"/>
+                    <include name="specialCharacterSurnameInputChangeValue"/>
+                    <include name="invalidRuleMailInputChangeValue"/>
+                    <include name="specCharacterRuleMailInputChangeValue"/>
+                    <include name="invalidPhoneNumberInputChangeValue"/>
+                    <include name="emptyPhoneNumberInputChangeValue"/>
+                </methods>
+            </class>
+            <class name="test.profile.UserPasswordTest">
+                <methods>
+                    <include name="controlDefaultValue"/>
+                    <include name="emptyPasswordInputChangeValue"/>
+                    <include name="sixLetterRuleJustNumberInputChangeValue"/>
+                    <include name="sixLetterRuleJustLetterInputValue"/>
+                    <include name="invalidCurrentPasswordInputValue"/>
+                    <include name="doNotMatchNewAndConfirmPasswordInputValue"/>
+                    <include name="allInputChangeValue"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
