@@ -11,7 +11,6 @@ public class UserEditTest extends BaseTest {
 
     @Test(description = "Bütün alanlara değerler girilir ve kaydedilir.")
     public void allInputChangeValue() {
-        userEditPage = new UserEditMethods(driver);
         goToProfilePage();
         userEditPage
                 .clickEditButton()
@@ -22,6 +21,9 @@ public class UserEditTest extends BaseTest {
                 .clickSaveButton()
                 .controlPageTextError("")
                 .logout();
+        goToProfilePage();
+        userEditPage
+                .controlTextMyInfo(getValueProps.truPersonName,getValueProps.truePersonSurname,getValueProps.truePersonMail);
     }
 
     @Test(description = "Alanlara değer girilmez ve kaydet butonuna tıklanır.")

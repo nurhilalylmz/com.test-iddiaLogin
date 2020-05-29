@@ -9,11 +9,13 @@ import org.testng.Assert;
 
 public class UserEditMethods extends BaseMethods {
 
-    ContantsUserEditPage userEditPage = PageFactory.initElements(driver, ContantsUserEditPage.class);
+    ContantsUserEditPage userEditPage;
 
     public UserEditMethods(WebDriver webDriver) {
         super(webDriver);
+        userEditPage = PageFactory.initElements(webDriver, ContantsUserEditPage.class);
     }
+
 
     @Description("Düzenle sayfasına gidilmesini sağlar.")
     public UserEditMethods clickEditButton() {
@@ -119,11 +121,20 @@ public class UserEditMethods extends BaseMethods {
         }
         return new UserEditMethods(driver);
     }
+
     @Description("Kullanıcı logout olur.")
     public UserEditMethods logout() {
         waitForPageLoad(userEditPage.copyrightText);
         clickElement(userEditPage.buttonLogout);
         waitSeconds(1);
+        return new UserEditMethods(driver);
+    }
+
+    @Description("Bilgilerim alanında bulunan kullanıcının bilgilerini kontrol eder.")
+    public UserEditMethods controlTextMyInfo(String textName, String textLastName,String textMail) {
+        controlPageTextEqual(userEditPage.textPersonName.getText(), textName);
+        controlPageTextEqual(userEditPage.textPersonLastName.getText(), textLastName);
+        controlPageTextEqual(userEditPage.textPersonEmail.getText(), textMail);
         return new UserEditMethods(driver);
     }
 }

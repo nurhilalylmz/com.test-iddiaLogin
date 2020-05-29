@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -22,12 +23,19 @@ public class BasePage {
         driver.navigate().to("https://test.iddaa.com/giris-yap");
     }
 
+    @AfterMethod
+    public void afterMethod(){
+      afterTest();
+      beginTest();
+    }
+
     @AfterTest
     public void afterTest() {
         if(driver!=null){
             driver.quit();
         }
     }
+
     public  void setDriver(WebDriver webDriver) {
         driver = webDriver;
     }

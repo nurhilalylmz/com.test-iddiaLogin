@@ -50,12 +50,6 @@ public class ContantsUserInfoPage extends BaseContants {
     public WebElement textSettings;
 
     ////Kullanıcı bilgileri
-    @FindBy(how = How.CSS, using = "div:nth-of-type(3) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")
-    public WebElement textPersonName;
-    @FindBy(how = How.CSS, using = "div:nth-of-type(3) > div:nth-of-type(2) > .faDsvx.sc-kGXeez")
-    public WebElement textPersonLastName;
-    @FindBy(how = How.CSS, using = "div:nth-of-type(5) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")
-    public WebElement textPersonEmail;
     @FindBy(how = How.CSS, using = "div:nth-of-type(5) > div:nth-of-type(2) > .faDsvx.sc-kGXeez")
     public WebElement textPersonPhoneNumber;
     @FindBy(how = How.CSS, using = "div:nth-of-type(7) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")

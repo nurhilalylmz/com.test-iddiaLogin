@@ -66,4 +66,11 @@ public class UserPasswordMethods extends BaseMethods {
         return new UserPasswordMethods(driver);
     }
 
+    @Description("Şifre güncelleme sayfasına gidilmesini sağlar.")
+    public UserPasswordMethods goToLoginPage() {
+        waitSeconds(2);
+        clickElement(userPasswordPage.buttonLogin);
+        return new UserPasswordMethods(driver);
+    }
+
 }

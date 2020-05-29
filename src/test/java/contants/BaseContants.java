@@ -26,6 +26,15 @@ public class BaseContants {
     public WebElement textChangePassword;
     @FindBy(how = How.CLASS_NAME,using = "sc-htpNat jmcovB")
     public WebElement buttonLogout;
+    //Kullanıcı
+    @FindBy(how = How.CSS, using = "div:nth-of-type(3) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")
+    public WebElement textPersonName;
+    @FindBy(how = How.CSS, using = "div:nth-of-type(3) > div:nth-of-type(2) > .faDsvx.sc-kGXeez")
+    public WebElement textPersonLastName;
+    @FindBy(how = How.CSS, using = "div:nth-of-type(5) > div:nth-of-type(1) > .faDsvx.sc-kGXeez")
+    public WebElement textPersonEmail;
+    @FindBy (how = How.CLASS_NAME,using = "sc-bdVaJa bqoYhy")
+    public WebElement buttonLogin;
 
     //Error
     @FindBy(how = How.CSS,using = ".iohaHW.sc-kpOJdX")

@@ -9,15 +9,15 @@ import pages.BasePage;
 
 public class BaseMethods extends BasePage {
     protected WebDriver driver;
-    protected WebDriverWait wait ;
+    protected WebDriverWait wait;
 
     public BaseMethods(WebDriver webDriver) {
-        this.wait= new WebDriverWait(webDriver, 30);
         this.driver=webDriver;
     }
 
     @Description("İlgili element tıklanabilir olana kadar bekler.")
     protected void waitElementToClickable(WebElement element) {
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
@@ -63,6 +63,7 @@ public class BaseMethods extends BasePage {
 
     @Description("Sayfayı belirli bir element yüklenene kadar beklemesini sağlar.")
     protected void waitForPageLoad(WebElement element) {
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -122,6 +123,7 @@ public class BaseMethods extends BasePage {
 
     @Description("İlgili element tıklanana kadar bekler")
     protected void waitUntilElementClickable(WebElement element){
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 

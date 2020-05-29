@@ -35,7 +35,9 @@ public class UserPasswordTest extends BaseTest {
                 .currentPasswordInputChangeValue(getValueProps.password)
                 .newPasswordInputChangeValue(getValueProps.newPassword)
                 .confirmNewPasswordInputChangeValue(getValueProps.newPassword)
-                .clickSaveButton();
+                .clickSaveButton()
+                .goToLoginPage();
+        successLogin(getValueProps.phoneNumber,getValueProps.newPassword);
     }
 
     @Description("Alanlara değer girilmez ve kaydet butonuna tıklanır.")
